@@ -1,10 +1,12 @@
 <?php 
   include 'examples_persons_array.php';
 
+  $fullName = $example_persons_array[random_int(0, count($example_persons_array) - 1)]['fullname'];
+
   function getPartsFromFullname ($fullName) {
       $arrKeys = ['name', 'surname', 'patronomyc'];
       $fullNameArr = explode (' ', $fullName );
-      return array_combine ($arrKeys, $fullNameArr);
+      return array_combine($arrKeys, $fullNameArr);
   }
 
   function getFullnameFromParts ($surname, $name, $patronomyc) {
@@ -19,12 +21,12 @@
   function getGenderFromName ($fullName) {
       $parts = getPartsFromFullname ($fullName);
       $sexAttribute = 0;
-           if (mb_substr ($parts ['patronomic'],-3,3) == 'вна' ||
+           if (mb_substr ($parts ['patronomyc'],-3,3) == 'вна' ||
                mb_substr ($parts ['name'],-1,2) == 'а' ||
                mb_substr ($parts ['surname'],-2,1) == 'ва')
                --$sexAttribute;
 
-           if (mb_substr ($parts ['patronomic'],-2,1) == 'ич' ||
+           if (mb_substr ($parts ['patronomyc'],-2,1) == 'ич' ||
                mb_substr ($parts ['name'],-1,2) == 'й' || mb_substr ($parts ['name'],-1,2) == 'н' ||
                mb_substr ($parts ['surname'],-1,1) == 'в')
                ++$sexAttribute;
@@ -49,11 +51,11 @@
         });
 
         $getFemale = array_filter($personsArray, function($person) {
-            return getGenderFromName ($person['fulname']) == 'female';
+            return getGenderFromName ($person['fullname']) == 'female';
         });
 
         $getUndefined = array_filter($personsArray, function($person) {
-            return getGenderFromName($person['fulname']) == 'undefined';
+            return getGenderFromName($person['fullname']) == 'undefined';
         });
 
         $male = round(count($getMale)*100/count($personsArray),1);
@@ -69,6 +71,9 @@
     Не удалось определить - $undefined%\n
     HEREDOCLETTER;
     }
+
+    print_r(getGenderDescription($example_persons_array));
+    print_r(getPartsFromFullname ($fullName));
     
     
     
