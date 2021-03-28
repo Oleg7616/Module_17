@@ -72,9 +72,24 @@
     HEREDOCLETTER;
     }
 
-    print_r(getGenderDescription($example_persons_array));
-    print_r(getPartsFromFullname ($fullName));
-    
-    
+    function getPerfectPartner ($surname, $name, $patronomyc, $personsArray) {
+        $fullName = mb_convert_case(getFullnameFromParts($surname,$name,$patronomyc), MB_CASE_TITLE_SIMPLE);
+        $randName = $personsArray[rand(0, count($personsArray)-1)] ['fullname'];
+
+        while(1){
+            if(getGenderFromName($fullName) != getGenderFromName($fullName1)){
+                $a = rand(50,100);
+                $f = getShortName($fullName);
+                $r = getShortName($fullName1);
+                echo<<<HEREDOCLETTER
+                $f + $r = 
+                ♡ Идеально на $a% ♡\n
+                HEREDOCLETTER;
+                break;
+            }
+        }
+    }
+
+
     
 
